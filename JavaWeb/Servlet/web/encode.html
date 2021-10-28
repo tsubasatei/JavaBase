@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--
+路径问题：
+前端路径
+1以/开头的路径是绝对路径,不以/开头是相对路径
+2绝对路径/后面要写当前服务的上下文路径名
+3 ../代表向上一层的路径
+4 base标签可以简化相对路径,当使用相对路径时,默认会在相对路径之前补充 base中的内容
+    5如果没有定义base 默认就是当前文件所在的路径
+
+配置web.xml 注意url-pattern
+
+请求转发路径总结:
+1以/开头的路径是绝对路径,不以/开头是相对路径
+2绝对路径以当前项目名部署名为根路径,绝对路径后不需要写当前项目部署名
+3 ../代表向上一层的路径
+4 servlet的相对路径是相对于url-pattern中的路径,是虚拟的路径
+
+响应重定向路径总结:
+1以/开头的路径是绝对路径,不以/开头是相对路径
+2绝对路径以当前项目所在目录为跟路径,绝对路径后需要写当前项目部署名
+3 ../代表向上一层的路径
+4 servlet的相对路径是相对于url-pattern中的路径,是虚拟的路径
+-->
+<form method="post" action="encode">
+    用户名：<input type="text" name="username">
+    <input type="submit" value="提交">
+</form>
+
+</body>
+</html>
