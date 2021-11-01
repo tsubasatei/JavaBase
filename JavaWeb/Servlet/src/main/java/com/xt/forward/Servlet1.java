@@ -18,6 +18,9 @@ public class Servlet1 extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String money = req.getParameter("money");
         System.out.println("servlet1: " + money);
+//        resp.setHeader("hehe", "haha");
+//        resp.addHeader("bj", "beijing");
+//        resp.sendError(404, "not found");
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html;charset=UTF-8");
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/fServlet2");
