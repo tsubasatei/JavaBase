@@ -1,4 +1,4 @@
-package com.xt.tank;
+package v1;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -8,7 +8,6 @@ import java.util.Properties;
  * @Desc
  */
 public class PropertyMgr {
-    private static final PropertyMgr instance = new PropertyMgr();
     private static Properties properties = new Properties();
     static {
         try {
@@ -18,14 +17,15 @@ public class PropertyMgr {
         }
     }
 
-    private PropertyMgr() {
+    public static Integer getInt(String key) {
+        return Integer.parseInt(properties.getProperty(key));
     }
 
-    public static PropertyMgr getInstance() {
-        return instance;
+    public static String getString(String key) {
+        return properties.getProperty(key);
     }
 
-    public String get(String key) {
+    public static Object get(String key) {
         return properties.getProperty(key);
     }
 }

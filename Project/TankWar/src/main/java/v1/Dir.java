@@ -1,9 +1,9 @@
-package com.xt.tank;
+package v1;
 
 /**
  * @author xt
  * @Desc
  */
 public enum Dir {
-    LEFT, UP, RIGHT, DOWN
+    UP, LEFT, DOWN, RIGHT
 }
