@@ -1,8 +1,6 @@
 package dp.strategy;
 
-import dp.Bullet;
-import dp.Dir;
-import dp.Tank;
+import dp.*;
 
 /**
  * @author xt
@@ -16,5 +14,7 @@ public class FourDirFireStrategy implements FireStrategy{
         for (Dir dir : Dir.values()) {
             tank.getTf().getBullets().add(new Bullet(bX, bY, dir, tank.getGroup(), tank.getTf()));
         }
+        if (tank.getGroup() == Group.GOOD)
+            new Thread(() -> new Audio("audio/tank_fire.wav").play()).start();
     }
 }
