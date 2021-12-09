@@ -13,5 +13,13 @@ public class Main {
         food.eat();
         Weapon weapon = factory.createWeapon();
         weapon.play();
+        System.out.println("----------");
+        factory = new MagicFactory();
+        vehicle = factory.createVehicle();
+        vehicle.go();
+        food = factory.createFood();
+        food.eat();
+        weapon = factory.createWeapon();
+        weapon.play();
     }
 }

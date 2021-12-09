@@ -8,5 +8,8 @@ public class Main {
     public static void main(String[] args) {
         Movable movable = PlaneFactory.create();
         movable.go();
+
+        movable = CarFactory.create();
+        movable.go();
     }
 }
