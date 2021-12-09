@@ -4,7 +4,8 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author xt
- * @Desc 多线程下有问题
+ * @Desc 懒汉式
+ * 按需初始化，但多线程不安全
  */
 public class Mgr03 {
 

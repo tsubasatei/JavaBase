@@ -2,7 +2,7 @@ package com.xt.dp.singleton;
 
 /**
  * @author xt
- * @Desc
+ * @Desc 同01
  */
 public class Mgr02 {
 

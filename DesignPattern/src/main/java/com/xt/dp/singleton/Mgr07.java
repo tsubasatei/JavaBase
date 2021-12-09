@@ -4,7 +4,9 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author xt
- * @Desc
+ * @Desc 静态内部类方式
+ * JVM保证单例
+ * 加载外部类时不会加载内部类，实现懒加载
  */
 public class Mgr07 {
 

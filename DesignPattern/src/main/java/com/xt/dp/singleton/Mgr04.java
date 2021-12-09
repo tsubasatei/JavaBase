@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author xt
- * @Desc
+ * @Desc 解决线程不安全问题，加synchronized锁，但效率降低
  */
 public class Mgr04 {
 

@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author xt
- * @Desc 多线程错误
+ * @Desc DCL
  */
 public class Mgr06 {
 
