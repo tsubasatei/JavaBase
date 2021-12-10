@@ -1,11 +1,11 @@
 package dp.strategy;
 
-import dp.Tank;
+import dp.factory.BaseTank;
 
 /**
  * @author xt
  * @Desc
  */
 public interface FireStrategy {
-    void fire(Tank tank);
+    void fire(BaseTank tank);
 }

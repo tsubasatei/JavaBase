@@ -1,7 +1,6 @@
-package dp;
+package dp.factory;
 
-import dp.factory.BaseBullet;
-import dp.factory.BaseTank;
+import dp.*;
 
 import java.awt.*;
 
@@ -9,7 +8,7 @@ import java.awt.*;
  * @author xt
  * @Desc 子弹
  */
-public class Bullet extends BaseBullet {
+public class RectBullet extends BaseBullet {
     private int x;
     private int y;
     private Dir dir;
@@ -17,11 +16,11 @@ public class Bullet extends BaseBullet {
     private TankFrame tf;
     private boolean live = true;
     public static final int SPEED = PropertyMgr.getInt("bulletSpeed");
-    public static int WIDTH = ResourceMgr.getBulletD().getWidth();
-    public static int HEIGHT = ResourceMgr.getBulletD().getHeight();
+    public static int WIDTH = 20;
+    public static int HEIGHT = 20;
     private Rectangle rect = new Rectangle();
 
-    public Bullet(int x, int y, Dir dir, Group group, TankFrame tf) {
+    public RectBullet(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -39,23 +38,13 @@ public class Bullet extends BaseBullet {
     @Override
     public void paint(Graphics g) {
         if (!live) {
-            tf.bullets.remove(this);
+            tf.getBullets().remove(this);
             return;
         }
-        switch (dir) {
-            case LEFT:
-                g.drawImage(ResourceMgr.getBulletL(), x, y, null);
-                break;
-            case UP:
-                g.drawImage(ResourceMgr.getBulletU(), x, y, null);
-                break;
-            case RIGHT:
-                g.drawImage(ResourceMgr.getBulletR(), x, y, null);
-                break;
-            case DOWN:
-                g.drawImage(ResourceMgr.getBulletD(), x, y, null);
-                break;
-        }
+        Color color = g.getColor();
+        g.setColor(Color.YELLOW);
+        g.fillRect(x, y, WIDTH, HEIGHT);
+        g.setColor(color);
 
         move();
     }
@@ -93,7 +82,7 @@ public class Bullet extends BaseBullet {
             tank.die();
             int eX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
             int eY = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-            tf.explodes.add(tf.factory.createExplode(eX, eY, tank.getTf()));
+            tf.getExplodes().add(tf.factory.createExplode(eX, eY, tank.getTf()));
         }
     }
 

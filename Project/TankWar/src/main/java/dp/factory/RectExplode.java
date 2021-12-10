@@ -1,6 +1,8 @@
-package dp;
+package dp.factory;
 
-import dp.factory.BaseExplode;
+import dp.Audio;
+import dp.ResourceMgr;
+import dp.TankFrame;
 
 import java.awt.*;
 
@@ -8,7 +10,7 @@ import java.awt.*;
  * @author xt
  * @Desc
  */
-public class Explode extends BaseExplode {
+public class RectExplode extends BaseExplode {
     private int x;
     private int y;
     private TankFrame tf;
@@ -16,7 +18,7 @@ public class Explode extends BaseExplode {
     public static int WIDTH = ResourceMgr.getExplods()[0].getWidth();
     public static int HEIGHT = ResourceMgr.getExplods()[0].getHeight();
 
-    public Explode(int x, int y, TankFrame tf) {
+    public RectExplode(int x, int y, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.tf = tf;
@@ -26,9 +28,13 @@ public class Explode extends BaseExplode {
 
     @Override
     public void paint(Graphics g) {
-        g.drawImage(ResourceMgr.getExplods()[step++], x, y, null);
-        if (step >= ResourceMgr.getExplods().length) {
-            tf.explodes.remove(this);
+        Color color = g.getColor();
+        g.setColor(Color.RED);
+        g.fillRect(x, y, 10 * step, 10 * step);
+        step++;
+        if (step >= 15) {
+            tf.getExplodes().remove(this);
         }
+        g.setColor(color);
     }
 }

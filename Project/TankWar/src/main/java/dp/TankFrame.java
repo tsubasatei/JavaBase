@@ -1,5 +1,7 @@
 package dp;
 
+import dp.factory.*;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -15,10 +17,11 @@ import java.util.List;
 public class TankFrame extends Frame {
     public static final int GAME_WIDTH = PropertyMgr.getInt("gameWidth");
     public static final int GAME_HEIGHT = PropertyMgr.getInt("gameHeight");
-    Tank tank = new Tank(200, 400, Dir.UP, Group.GOOD,this);
-    List<Bullet> bullets = new ArrayList<>();
-    List<Tank> engines = new ArrayList<>();
-    List<Explode> explodes = new ArrayList<>();
+    public GameFactory factory = RectFactory.getInstance();
+    BaseTank tank = factory.createTank(200, 400, Dir.UP, Group.GOOD,this);
+    List<BaseBullet> bullets = new ArrayList<>();
+    List<BaseTank> engines = new ArrayList<>();
+    List<BaseExplode> explodes = new ArrayList<>();
     public TankFrame() throws HeadlessException {
         setTitle("tank war");
         setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -153,7 +156,15 @@ public class TankFrame extends Frame {
         }
     }
 
-    public List<Bullet> getBullets() {
+    public List<BaseBullet> getBullets() {
         return bullets;
+    }
+
+    public List<BaseExplode> getExplodes() {
+        return explodes;
+    }
+
+    public List<BaseTank> getEngines() {
+        return engines;
     }
 }

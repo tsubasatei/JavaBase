@@ -1,5 +1,8 @@
 package dp;
 
+import dp.factory.BaseTank;
+import dp.factory.RectTank;
+
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -12,7 +15,7 @@ public class Main {
         TankFrame tankFrame = new TankFrame();
         Integer enemyTankCount = PropertyMgr.getInt("enemyTankCount");
         for (int i = 0; i < enemyTankCount; i++) {
-            tankFrame.engines.add(new Tank(50 + i * 80, 200, Dir.DOWN, Group.BAD, tankFrame));
+            tankFrame.engines.add(tankFrame.factory.createTank(50 + i * 80, 200, Dir.DOWN, Group.BAD, tankFrame));
         }
         new Thread(() -> new Audio("audio/war1.wav").loop()).start();
         while (true) {
