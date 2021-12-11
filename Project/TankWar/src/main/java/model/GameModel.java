@@ -25,6 +25,11 @@ public class GameModel {
         for (int i = 0; i < enemyTankCount; i++) {
             new Tank(50 + i * 80, 200, Dir.DOWN, Group.BAD);
         }
+        // 初始化墙
+        new Wall(150, 150, 200, 50);
+        new Wall(550, 150, 200, 50);
+        new Wall(300, 300, 50, 200);
+        new Wall(550, 300, 50, 200);
     }
 
     private GameModel() {
@@ -48,12 +53,6 @@ public class GameModel {
         for (int i = 0; i < objects.size(); i++) {
             objects.get(i).paint(g);
         }
-
-        // 绘制墙
-        new Wall(150, 150, 200, 50);
-        new Wall(550, 150, 200, 50);
-        new Wall(300, 300, 50, 200);
-        new Wall(550, 300, 50, 200);
 
         // 碰撞检测
         for (int i = 0; i < objects.size(); i++) {
