@@ -15,7 +15,7 @@ public class Main {
         TankFrame tankFrame = new TankFrame();
         Integer enemyTankCount = PropertyMgr.getInt("enemyTankCount");
         for (int i = 0; i < enemyTankCount; i++) {
-            tankFrame.engines.add(tankFrame.factory.createTank(50 + i * 80, 200, Dir.DOWN, Group.BAD, tankFrame));
+            tankFrame.enemies.add(tankFrame.factory.createTank(50 + i * 80, 200, Dir.DOWN, Group.BAD, tankFrame));
         }
         new Thread(() -> new Audio("audio/war1.wav").loop()).start();
         while (true) {

@@ -1,4 +1,4 @@
-package v1;
+package model;
 
 import java.util.concurrent.TimeUnit;
 
@@ -10,10 +10,7 @@ public class Main {
     public static void main(String[] args) {
 
         TankFrame tankFrame = new TankFrame();
-        Integer enemyTankCount = PropertyMgr.getInt("enemyTankCount");
-        for (int i = 0; i < enemyTankCount; i++) {
-            tankFrame.enemies.add(new Tank(50 + i * 80, 200, Dir.DOWN, Group.BAD, tankFrame));
-        }
+
         new Thread(() -> new Audio("audio/war1.wav").loop()).start();
         while (true) {
             // 暂停一会儿线程

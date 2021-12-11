@@ -1,6 +1,4 @@
-package dp;
-
-import dp.factory.*;
+package model;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -15,13 +13,11 @@ import java.util.List;
  * @Desc
  */
 public class TankFrame extends Frame {
+
     public static final int GAME_WIDTH = PropertyMgr.getInt("gameWidth");
     public static final int GAME_HEIGHT = PropertyMgr.getInt("gameHeight");
-    public GameFactory factory = RectFactory.getInstance();
-    BaseTank tank = factory.createTank(200, 400, Dir.UP, Group.GOOD,this);
-    List<BaseBullet> bullets = new ArrayList<>();
-    List<BaseTank> enemies = new ArrayList<>();
-    List<BaseExplode> explodes = new ArrayList<>();
+    private GameModel gameModel = new GameModel();
+
     public TankFrame() throws HeadlessException {
         setTitle("tank war");
         setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -55,30 +51,7 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        Color c = g.getColor();
-        g.setColor(Color.WHITE);
-        g.drawString("子弹的数量：" + bullets.size(), 10, 60);
-        g.drawString("敌人的数量：" + enemies.size(), 10, 80);
-        g.drawString("爆炸的数量：" + explodes.size(), 10, 100);
-        g.setColor(c);
-
-        tank.paint(g);
-        for (int i = 0; i < bullets.size(); i++) {
-            bullets.get(i).paint(g);
-        }
-        for (int i = 0; i < enemies.size(); i++) {
-            enemies.get(i).paint(g);
-        }
-        // 碰撞检测
-        for (int i = 0; i < bullets.size(); i++) {
-            for (int j = 0; j < enemies.size(); j++) {
-                bullets.get(i).collideWith(enemies.get(j));
-            }
-        }
-
-        for (int i = 0; i < explodes.size(); i++) {
-            explodes.get(i).paint(g);
-        }
+        gameModel.paint(g);
     }
 
     class MyKeyListener extends KeyAdapter {
@@ -103,7 +76,7 @@ public class TankFrame extends Frame {
                     bD = true;
                     break;
                 case KeyEvent.VK_CONTROL:
-                    tank.fire();
+                    gameModel.tank.fire();
                     break;
                 default:
                     break;
@@ -135,6 +108,7 @@ public class TankFrame extends Frame {
         }
 
         public void setMainTankDir() {
+            Tank tank = gameModel.getMainTank();
             if (!bU && !bL && !bD && !bR) {
                 tank.setMoving(false);
             } else {
@@ -152,19 +126,6 @@ public class TankFrame extends Frame {
                     tank.setDir(Dir.RIGHT);
                 }
             }
-
         }
-    }
-
-    public List<BaseBullet> getBullets() {
-        return bullets;
-    }
-
-    public List<BaseExplode> getExplodes() {
-        return explodes;
-    }
-
-    public List<BaseTank> getEngines() {
-        return enemies;
     }
 }

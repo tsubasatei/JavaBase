@@ -1,61 +1,44 @@
-package dp;
+package model;
 
-import dp.factory.BaseTank;
-import dp.strategy.FireStrategy;
+import model.strategy.FireStrategy;
+import model.strategy.FourDirFireStrategy;
 
 import java.awt.*;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 /**
  * @author xt
  * @Desc
  */
-public class Tank extends BaseTank {
-    private int x;
-    private int y;
+public class Tank extends GameObject{
     private Dir dir;
     private Group group;
     public static final int SPEED = PropertyMgr.getInt("tankSpeed");
-    private TankFrame tf;
     public static int WIDTH = ResourceMgr.getGoodTankD().getWidth();
     public static int HEIGHT = ResourceMgr.getGoodTankD().getHeight();
     private boolean moving = true;
     private boolean live = true;
     private Random random = new Random();
     private Rectangle rect = new Rectangle();
-    private FireStrategy fireStrategy;
-
-    public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
+    private FireStrategy fireStrategy = new FourDirFireStrategy();
+    private int oldX;
+    private int oldY;
+    public Tank(int x, int y, Dir dir, Group group, GameModel gameModel) {
         this.x = x;
         this.y = y;
+        this.gameModel = gameModel;
         this.dir = dir;
         this.group = group;
-        this.tf = tf;
 
         rect.x = x;
         rect.y = y;
         rect.width = WIDTH;
         rect.height = HEIGHT;
-
-        String fireStrategyName = group == Group.GOOD ? PropertyMgr.getString("goodTankFireStrategy") : PropertyMgr.getString("badTankFireStrategy");
-        try {
-            Class<?> clazz = Class.forName(fireStrategyName);
-            this.fireStrategy = (FireStrategy) clazz.getDeclaredConstructor().newInstance();
-        } catch (ClassNotFoundException | NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
     }
 
     public void paint(Graphics g) {
         if (!live) {
-            tf.enemies.remove(this);
+            gameModel.objects.remove(this);
         }
         switch (dir) {
             case LEFT:
@@ -75,6 +58,8 @@ public class Tank extends BaseTank {
     }
 
     private void move() {
+        oldX = x;
+        oldY = y;
         if (!moving) return;
         switch (dir) {
             case UP:
@@ -132,20 +117,11 @@ public class Tank extends BaseTank {
         return group;
     }
 
-    public TankFrame getTf() {
-        return tf;
-    }
-
-    public Dir getDir() {
-        return dir;
-    }
-
     // 发射子弹
-    @Override
     public void fire() {
         /*int bX = this.x + WIDTH / 2 - Bullet.WIDTH / 2;
         int bY = this.y + HEIGHT / 2 - Bullet.HEIGHT / 2;
-        this.tf.bullets.add(new Bullet(bX, bY, this.dir, this.group, tf));*/
+        new Bullet(bX, bY, this.dir, this.group, gameModel);*/
         fireStrategy.fire(this);
     }
 
@@ -155,5 +131,19 @@ public class Tank extends BaseTank {
 
     public Rectangle getRect() {
         return rect;
+    }
+
+    public FireStrategy getFireStrategy() {
+        return fireStrategy;
+    }
+
+    public Dir getDir() {
+        return dir;
+    }
+
+    // 回退上一步
+    public void back() {
+        x = oldX;
+        y = oldY;
     }
 }

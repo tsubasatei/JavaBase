@@ -14,7 +14,7 @@ public class TankFrame extends Frame {
     public static final int GAME_HEIGHT = PropertyMgr.getInt("gameHeight");
     Tank tank = new Tank(200, 400, Dir.UP, Group.GOOD,this);
     List<Bullet> bullets = new ArrayList<>();
-    List<Tank> engines = new ArrayList<>();
+    List<Tank> enemies = new ArrayList<>();
     List<Explode> explodes = new ArrayList<>();
     public TankFrame() throws HeadlessException {
         setTitle("tank war");
@@ -52,7 +52,7 @@ public class TankFrame extends Frame {
         Color c = g.getColor();
         g.setColor(Color.WHITE);
         g.drawString("子弹的数量：" + bullets.size(), 10, 60);
-        g.drawString("敌人的数量：" + engines.size(), 10, 80);
+        g.drawString("敌人的数量：" + enemies.size(), 10, 80);
         g.drawString("爆炸的数量：" + explodes.size(), 10, 100);
         g.setColor(c);
 
@@ -60,13 +60,13 @@ public class TankFrame extends Frame {
         for (int i = 0; i < bullets.size(); i++) {
             bullets.get(i).paint(g);
         }
-        for (int i = 0; i < engines.size(); i++) {
-            engines.get(i).paint(g);
+        for (int i = 0; i < enemies.size(); i++) {
+            enemies.get(i).paint(g);
         }
         // 碰撞检测
         for (int i = 0; i < bullets.size(); i++) {
-            for (int j = 0; j < engines.size(); j++) {
-                bullets.get(i).collideWith(engines.get(j));
+            for (int j = 0; j < enemies.size(); j++) {
+                bullets.get(i).collideWith(enemies.get(j));
             }
         }
 

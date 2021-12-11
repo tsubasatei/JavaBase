@@ -36,7 +36,7 @@ public class Tank {
 
     public void paint(Graphics g) {
         if (!live) {
-            tf.engines.remove(this);
+            tf.enemies.remove(this);
         }
         switch (dir) {
             case LEFT:
