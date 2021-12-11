@@ -10,23 +10,22 @@ import java.util.List;
  * @Desc
  */
 public class ColliderChain implements Collider{
-    private List<Collider> colliders;
+    private List<Collider> colliders = new ArrayList<>();
 
     public ColliderChain() {
-        colliders = new ArrayList<>();
         colliders.add(new BulletTankCollider());
         colliders.add(new TankTankCollider());
+        colliders.add(new BulletWallCollider());
+        colliders.add(new TankWallCollider());
     }
 
     @Override
     public boolean collide(GameObject o1, GameObject o2) {
-        boolean flag = false;
         for (Collider collider : colliders) {
-            flag = collider.collide(o1, o2);
-            if (flag) {
-                continue;
+            if (!collider.collide(o1, o2)) {
+                return false;
             }
         }
-        return flag;
+        return true;
     }
 }

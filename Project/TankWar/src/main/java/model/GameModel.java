@@ -11,16 +11,27 @@ import java.util.List;
  * @Desc
  */
 public class GameModel {
-
-    Tank tank = new Tank(200, 600, Dir.UP, Group.GOOD,this);
+    private static final GameModel INSTANCE = new GameModel();
+    Tank tank;
     List<GameObject> objects = new ArrayList<>();
     ColliderChain chain = new ColliderChain();
+    static {
+        INSTANCE.init();
+    }
 
-    public GameModel() {
+    private void init() {
+        tank = new Tank(200, 600, Dir.UP, Group.GOOD);
         Integer enemyTankCount = PropertyMgr.getInt("enemyTankCount");
         for (int i = 0; i < enemyTankCount; i++) {
-            objects.add(new Tank(50 + i * 80, 200, Dir.DOWN, Group.BAD, this));
+            new Tank(50 + i * 80, 200, Dir.DOWN, Group.BAD);
         }
+    }
+
+    private GameModel() {
+
+    }
+    public static GameModel getInstance() {
+        return INSTANCE;
     }
 
     public void add(GameObject gameObject) {
@@ -32,17 +43,17 @@ public class GameModel {
     }
 
     public void paint(Graphics g) {
-        /*Color c = g.getColor();
-        g.setColor(Color.WHITE);
-        g.drawString("子弹的数量：" + bullets.size(), 10, 60);
-        g.drawString("敌人的数量：" + enemies.size(), 10, 80);
-        g.drawString("爆炸的数量：" + explodes.size(), 10, 100);
-        g.setColor(c);*/
 
         tank.paint(g);
         for (int i = 0; i < objects.size(); i++) {
             objects.get(i).paint(g);
         }
+
+        // 绘制墙
+        new Wall(150, 150, 200, 50);
+        new Wall(550, 150, 200, 50);
+        new Wall(300, 300, 50, 200);
+        new Wall(550, 300, 50, 200);
 
         // 碰撞检测
         for (int i = 0; i < objects.size(); i++) {

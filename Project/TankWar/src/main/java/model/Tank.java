@@ -23,12 +23,14 @@ public class Tank extends GameObject{
     private FireStrategy fireStrategy = new FourDirFireStrategy();
     private int oldX;
     private int oldY;
-    public Tank(int x, int y, Dir dir, Group group, GameModel gameModel) {
+
+    public Tank(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
-        this.gameModel = gameModel;
         this.dir = dir;
         this.group = group;
+
+        GameModel.getInstance().add(this);
 
         rect.x = x;
         rect.y = y;
@@ -38,7 +40,7 @@ public class Tank extends GameObject{
 
     public void paint(Graphics g) {
         if (!live) {
-            gameModel.objects.remove(this);
+            GameModel.getInstance().objects.remove(this);
         }
         switch (dir) {
             case LEFT:

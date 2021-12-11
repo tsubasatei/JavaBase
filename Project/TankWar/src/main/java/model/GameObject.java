@@ -9,7 +9,6 @@ import java.awt.*;
 public abstract class GameObject {
     public int x;
     public int y;
-    public GameModel gameModel;
     public abstract void paint(Graphics g);
 
     public int getX() {
@@ -27,9 +26,4 @@ public abstract class GameObject {
     public void setY(int y) {
         this.y = y;
     }
-
-    public GameModel getGameModel() {
-        return gameModel;
-    }
-
 }

@@ -15,10 +15,9 @@ public class Bullet extends GameObject{
     public static int HEIGHT = ResourceMgr.getBulletD().getHeight();
     private Rectangle rect = new Rectangle();
 
-    public Bullet(int x, int y, Dir dir, Group group, GameModel gameModel) {
+    public Bullet(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
-        this.gameModel = gameModel;
         this.dir = dir;
         this.group = group;
 
@@ -27,12 +26,12 @@ public class Bullet extends GameObject{
         rect.width = WIDTH;
         rect.height = HEIGHT;
 
-        this.gameModel.objects.add(this);
+        GameModel.getInstance().objects.add(this);
     }
 
     public void paint(Graphics g) {
         if (!live) {
-            gameModel.objects.remove(this);
+            GameModel.getInstance().objects.remove(this);
             return;
         }
         switch (dir) {
@@ -75,18 +74,6 @@ public class Bullet extends GameObject{
 
         rect.x = x;
         rect.y = y;
-    }
-
-    // 碰撞检测
-    public void collideWith(Tank tank) {
-        if (this.group == tank.getGroup()) return;
-        if (rect.intersects(tank.getRect())) {
-            this.die();
-            tank.die();
-            int eX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
-            int eY = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-            new Explode(eX, eY, tank.getGameModel());
-        }
     }
 
     public void die() {

@@ -16,7 +16,7 @@ public class TankFrame extends Frame {
 
     public static final int GAME_WIDTH = PropertyMgr.getInt("gameWidth");
     public static final int GAME_HEIGHT = PropertyMgr.getInt("gameHeight");
-    private GameModel gameModel = new GameModel();
+    private GameModel gameModel = GameModel.getInstance();
 
     public TankFrame() throws HeadlessException {
         setTitle("tank war");
