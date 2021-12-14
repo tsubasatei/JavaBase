@@ -1,6 +1,5 @@
 package model.chainOfResponsibility;
 
-import model.Bullet;
 import model.GameObject;
 import model.Tank;
 import model.Wall;
@@ -9,7 +8,7 @@ import model.Wall;
  * @author xt
  * @Desc
  */
-public class TankWallCollider implements Collider{
+public class TankWallCollider implements Collider {
     @Override
     public boolean collide(GameObject o1, GameObject o2) {
         if (o1 instanceof Tank && o2 instanceof Wall) {
@@ -18,11 +17,9 @@ public class TankWallCollider implements Collider{
             if (tank.getRect().intersects(wall.getRect())) {
                 tank.back();
             }
-            return true;
-        } else if (o2 instanceof Bullet && o1 instanceof Wall) {
+        } else if (o1 instanceof Wall && o2 instanceof Tank) {
             return collide(o2, o1);
-        } else {
-            return true;
         }
+        return true;
     }
 }

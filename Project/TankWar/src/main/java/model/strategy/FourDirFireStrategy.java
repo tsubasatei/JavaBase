@@ -1,6 +1,8 @@
 package model.strategy;
 
 import model.*;
+import model.decorator.RectDecorator;
+import model.decorator.TailDecorator;
 
 /**
  * @author xt

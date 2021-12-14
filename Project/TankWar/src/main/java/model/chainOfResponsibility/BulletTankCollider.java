@@ -9,7 +9,7 @@ import model.Tank;
  * @author xt
  * @Desc
  */
-public class BulletTankCollider implements Collider{
+public class BulletTankCollider implements Collider {
     @Override
     public boolean collide(GameObject o1, GameObject o2) {
         if (o1 instanceof Bullet && o2 instanceof Tank) {
@@ -24,11 +24,9 @@ public class BulletTankCollider implements Collider{
                 new Explode(eX, eY);
                 return false;
             }
-            return true;
-        } else if (o2 instanceof Bullet && o1 instanceof Tank) {
+        } else if (o1 instanceof Tank && o2 instanceof Bullet) {
             return collide(o2, o1);
-        } else {
-            return true;
         }
+        return true;
     }
 }

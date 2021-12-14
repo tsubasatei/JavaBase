@@ -7,6 +7,7 @@ import java.awt.*;
  * @Desc 子弹
  */
 public class Bullet extends GameObject{
+
     private Dir dir;
     private Group group;
     private boolean live = true;
@@ -26,13 +27,13 @@ public class Bullet extends GameObject{
         rect.width = WIDTH;
         rect.height = HEIGHT;
 
-        GameModel.getInstance().objects.add(this);
+        GameModel.getInstance().add(this);
     }
 
     public void paint(Graphics g) {
         if (!live) {
-            GameModel.getInstance().objects.remove(this);
-            return;
+            GameModel.getInstance().remove(this);
+            // 不要加return
         }
         switch (dir) {
             case LEFT:
@@ -68,6 +69,8 @@ public class Bullet extends GameObject{
                 break;
         }
 
+
+
         if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) {
             live = false;
         }
@@ -86,6 +89,16 @@ public class Bullet extends GameObject{
 
     public Rectangle getRect() {
         return rect;
+    }
+
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
     }
 
 }

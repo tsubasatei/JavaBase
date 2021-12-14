@@ -14,7 +14,7 @@ public class Explode extends GameObject {
     public Explode(int x, int y) {
         this.x = x;
         this.y = y;
-        GameModel.getInstance().objects.add(this);
+        GameModel.getInstance().add(this);
         new Thread(()->new Audio("audio/explode.wav").play()).start();
     }
 
@@ -22,7 +22,17 @@ public class Explode extends GameObject {
     public void paint(Graphics g) {
         g.drawImage(ResourceMgr.getExplods()[step++], this.x, this.y, null);
         if (step >= ResourceMgr.getExplods().length) {
-            GameModel.getInstance().objects.remove(this);
+            GameModel.getInstance().remove(this);
         }
+    }
+
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
     }
 }

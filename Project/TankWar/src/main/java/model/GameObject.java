@@ -7,8 +7,8 @@ import java.awt.*;
  * @Desc
  */
 public abstract class GameObject {
-    public int x;
-    public int y;
+    protected int x;
+    protected int y;
     public abstract void paint(Graphics g);
 
     public int getX() {
@@ -26,4 +26,7 @@ public abstract class GameObject {
     public void setY(int y) {
         this.y = y;
     }
+
+    public abstract int getWidth();
+    public abstract int getHeight();
 }

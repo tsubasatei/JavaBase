@@ -6,7 +6,7 @@ import model.*;
  * @author xt
  * @Desc
  */
-public class BulletWallCollider implements Collider{
+public class BulletWallCollider implements Collider {
     @Override
     public boolean collide(GameObject o1, GameObject o2) {
         if (o1 instanceof Bullet && o2 instanceof Wall) {
@@ -15,11 +15,9 @@ public class BulletWallCollider implements Collider{
             if (bullet.getRect().intersects(wall.getRect())) {
                 bullet.die();
             }
-            return true;
-        } else if (o2 instanceof Bullet && o1 instanceof Wall) {
+        } else if (o1 instanceof Wall && o2 instanceof Bullet) {
             return collide(o2, o1);
-        } else {
-            return true;
         }
+        return true;
     }
 }

@@ -1,9 +1,9 @@
 package model;
 
 import model.strategy.FireStrategy;
-import model.strategy.FourDirFireStrategy;
 
 import java.awt.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 /**
@@ -20,7 +20,7 @@ public class Tank extends GameObject{
     private boolean live = true;
     private Random random = new Random();
     private Rectangle rect = new Rectangle();
-    private FireStrategy fireStrategy = new FourDirFireStrategy();
+    private FireStrategy fireStrategy;
     private int oldX;
     private int oldY;
 
@@ -29,6 +29,20 @@ public class Tank extends GameObject{
         this.y = y;
         this.dir = dir;
         this.group = group;
+        String fsName = PropertyMgr.getString(this.group == Group.GOOD ? "goodTankFireStrategy" : "badTankFireStrategy");
+        try {
+            fireStrategy = (FireStrategy) Class.forName(fsName).getDeclaredConstructor().newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
         GameModel.getInstance().add(this);
 
@@ -147,5 +161,15 @@ public class Tank extends GameObject{
     public void back() {
         x = oldX;
         y = oldY;
+    }
+
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
     }
 }
