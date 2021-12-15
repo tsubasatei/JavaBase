@@ -1,9 +1,14 @@
 package model;
 
+import model.observer.TankFireHandler;
+import model.observer.TankFireEvent;
+import model.observer.TankFireObserver;
 import model.strategy.FireStrategy;
 
 import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -135,9 +140,6 @@ public class Tank extends GameObject{
 
     // 发射子弹
     public void fire() {
-        /*int bX = this.x + WIDTH / 2 - Bullet.WIDTH / 2;
-        int bY = this.y + HEIGHT / 2 - Bullet.HEIGHT / 2;
-        new Bullet(bX, bY, this.dir, this.group, gameModel);*/
         fireStrategy.fire(this);
     }
 
@@ -171,5 +173,13 @@ public class Tank extends GameObject{
     @Override
     public int getHeight() {
         return HEIGHT;
+    }
+
+    private List<TankFireObserver> fireObservers = Arrays.asList(new TankFireHandler());
+    public void handleFireKey() {
+        TankFireEvent event = new TankFireEvent(this);
+        for (TankFireObserver o : fireObservers) {
+            o.actionFire(event);
+        }
     }
 }
